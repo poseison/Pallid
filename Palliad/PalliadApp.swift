@@ -10,6 +10,9 @@ import SwiftData
 
 @main
 struct PalliadApp: App {
+    
+    @ObservedObject var router = AppRouter()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -25,8 +28,37 @@ struct PalliadApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
-        .modelContainer(sharedModelContainer)
+            NavigationStack(path: $router.navPath) { // router is injected to navigation stack
+                ContentView()
+                .navigationDestination(for: Destination.self) { destination in
+                        switch destination {
+                        case .loginView:
+                            LoginView()
+                        case .signUpView:
+                            LoginView()
+                        case .emailVerificationView:
+                            EmailVerification()
+                        case .homeView:
+                            HomeView()
+                        case .myappointments:
+                            AppointmentsView()
+                        case .mycaregivers:
+                            MyLInkedCaregiverView()
+                        case .myjourneyView:
+                            MyJourneyView()
+                        case .mydoctors:
+                            MyDoctorsView()
+                        case .myPatients:
+                            MyPatientsView()
+                        case .bookAppointment:
+                            BookAppointmentView()
+                         }
+                
+                        
+                    }
+                    
+            }
+            .environmentObject(router)
+        }}
     }
-}
+
