@@ -42,7 +42,7 @@ class LoginViewModel: ObservableObject {
 
             UserSettings.shared.user = User(
                 username: username, fullName: "Charilaos Laliotis",
-                email: "chlaliotis@gmail.com", avatarURL: nil, role: .caregiver)
+                email: "chlaliotis@gmail.com", avatarURL: nil, role: .patient)
             loginSubject.send()
             isLoading = false
             isLoggedIn = true
